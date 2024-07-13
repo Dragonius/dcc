@@ -113,6 +113,7 @@ export class State<Schema extends BaseJsonSchema> {
 	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type Migrations = Array<(data: unknown) => Promise<unknown> | unknown>;
 
 interface StateOptions<Schema extends BaseJsonSchema> {

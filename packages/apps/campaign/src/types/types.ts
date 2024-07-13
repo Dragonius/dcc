@@ -39,7 +39,6 @@ export type Task =
 	| "TARCAP"
 	| "CAS"
 	| "Escort"
-	| "Intercept"
 	| "Fighter Sweep"
 	| "Ground Attack"
 	| "Pinpoint Strike"
