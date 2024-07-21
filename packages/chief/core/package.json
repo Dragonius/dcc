@@ -9,8 +9,8 @@
 		"validate:ts": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@foxdelta2/dcsjs": "0.3.2-next.3",
-		"adm-zip": "^0.5.10",
+		"@foxdelta2/dcsjs": "0.3.2-next.4",
+		"adm-zip": "0.5.10",
 		"chokidar": "^3.5.3",
 		"electron-fetch": "^1.9.1",
 		"electron-squirrel-startup": "^1.0.0",
@@ -22,7 +22,7 @@
 	},
 	"devDependencies": {
 		"@kilcekru/dcc-shared-types": "workspace:*",
-		"@types/adm-zip": "^0.5.0",
+		"@types/adm-zip": "0.5.3",
 		"@types/fs-extra": "^11.0.1",
 		"@types/node": "^20.4.1",
 		"@types/semver": "^7.5.1",
