@@ -306,6 +306,13 @@ export namespace Schema {
 		name: z.string().optional(),
 		params: z.object({}),
 	});
+
+	export const groupFrequencies = z.object({
+		package: z.number(),
+		airdrome: z.number().optional(),
+		awacs: z.number(),
+		jtac: z.number().optional(),
+	});
 }
 
 export type Position = z.TypeOf<typeof Schema.position>;
@@ -333,3 +340,4 @@ export type AirdromeStand = z.TypeOf<typeof Schema.airdromeStand>;
 export type RoutePointTaskTemplate = z.TypeOf<typeof Schema.routePointTaskTemplate>;
 export type TriggerRule = z.TypeOf<typeof Schema.triggerRule>;
 export type TriggerType = z.TypeOf<typeof Schema.triggerType>;
+export type GroupFrequencies = z.TypeOf<typeof Schema.groupFrequencies>;

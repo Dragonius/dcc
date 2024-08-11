@@ -1,6 +1,6 @@
 mapResource = 
 {
-    ["ResKey_Action_6"] = "mist_4_5_122.lua",
+    ["ResKey_Action_6"] = "mist_4_5_126.lua",
     ["ResKey_Action_7"] = "json.lua",
     ["ResKey_Action_8"] = "mission-config.lua",
     ["ResKey_Action_9"] = "utils.lua",

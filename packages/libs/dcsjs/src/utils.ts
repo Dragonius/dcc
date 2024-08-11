@@ -5,6 +5,7 @@ import { DeadFlightGroup } from "./class/DeadFlightGroup";
 import { EscortFlightGroup } from "./class/EscortFlightGroup";
 import { FlightGroup } from "./class/FlightGroup";
 import { JtacFlightGroup } from "./class/JtacFlightGroup";
+import { SeadFlightGroup } from "./class/SeadFlightGroup";
 import { StrikeFlightGroup } from "./class/StrikeFlightGroup";
 import * as Types from "./data";
 import * as Data from "./data";
@@ -74,10 +75,10 @@ export function addPropAircraft(
 	return prop;
 }
 
-export function addRadio(unit: FlightGroupUnit) {
+export function addRadio(unit: FlightGroupUnit, frequencies: Types.GroupFrequencies) {
 	if (unit.isClient) {
 		switch (unit.type) {
-			case "F-16C_50": {
+			/* case "F-16C_50": {
 				return [
 					{
 						channels: [
@@ -94,12 +95,30 @@ export function addRadio(unit: FlightGroupUnit) {
 						channelsNames: {},
 					},
 				];
-			}
+			} */
 			default: {
 				return [
 					{
 						channels: [
-							127.5, 119.25, 122, 126.5, 127, 129, 131, 133, 141, 250.5, 251, 253, 254, 257, 260, 261, 262, 263, 267,
+							frequencies.package,
+							frequencies.airdrome ?? 300,
+							frequencies.awacs,
+							frequencies.jtac ?? 126.5,
+							127,
+							129,
+							131,
+							133,
+							141,
+							250.5,
+							251,
+							253,
+							254,
+							257,
+							260,
+							261,
+							262,
+							263,
+							267,
 							270,
 						],
 						modulations: {},
@@ -215,9 +234,8 @@ export const flightGroupTasks = ({ flightGroup, mission }: { flightGroup: Flight
 			if (flightGroup instanceof JtacFlightGroup) {
 				const targetGG = getTargetGroundGroup(flightGroup.target, mission);
 
-				tasks.push(Data.TaskAction.AFAC);
-
 				if (targetGG == null) {
+					tasks.push(Data.TaskAction.AFAC);
 					break;
 				}
 
@@ -256,17 +274,28 @@ export const flightGroupTasks = ({ flightGroup, mission }: { flightGroup: Flight
 
 			break;
 		}
-		case "DEAD": {
-			if (flightGroup instanceof DeadFlightGroup) {
-				// const target = flightGroup.target;
-				/* target.units.forEach((unit) => {
-					tasks.push(Data.TaskAction.Bombing(unit.));
-				});
+		case "SEAD": {
+			if (flightGroup instanceof SeadFlightGroup) {
+				const target = getTargetFlightGroup(flightGroup.target, mission);
 
-				tasks.push(Data.TaskAction.SwitchWaypoint(3, 5)); */
+				if (target == null) {
+					break;
+				}
+
+				tasks.push(Data.TaskAction.SEADEscort(target.groupId));
 			} else {
 				// eslint-disable-next-line no-console
-				console.warn("Invalid Flight Group Class for Pinpoint Strike Task");
+				console.warn("Invalid Flight Group Class for SEAD Task");
+			}
+
+			break;
+		}
+		case "DEAD": {
+			if (flightGroup instanceof DeadFlightGroup) {
+				tasks.push(Data.TaskAction.CAS_EngageTargetsInZone(flightGroup.target.position));
+			} else {
+				// eslint-disable-next-line no-console
+				console.warn("Invalid Flight Group Class for DEAD Task");
 			}
 
 			break;
@@ -289,20 +318,9 @@ export const flightGroupTasks = ({ flightGroup, mission }: { flightGroup: Flight
 		}
 		case "Escort": {
 			if (flightGroup instanceof EscortFlightGroup) {
-				const country = mission.getCoalitionCountry(flightGroup.coalition);
-
-				if (country == null) {
-					// eslint-disable-next-line no-console
-					console.error("Country not found", flightGroup.coalition);
-					break;
-				}
-
-				const target = country.flightGroups.find((fg) => fg.name === flightGroup.target.name);
+				const target = getTargetFlightGroup(flightGroup.target, mission);
 
 				if (target == null) {
-					// eslint-disable-next-line no-console
-					console.error("Escort Target FG not fround", flightGroup.target);
-
 					break;
 				}
 
@@ -367,6 +385,27 @@ export function getTargetGroundGroup(target: Data.InputTypes.GroundGroup, missio
 	if (group == null) {
 		// eslint-disable-next-line no-console
 		console.error("Ground group not found", target);
+
+		return;
+	}
+
+	return group;
+}
+
+export function getTargetFlightGroup(target: Data.InputTypes.FlightGroup, mission: Mission) {
+	const country = mission.getCoalitionCountry(target.coalition);
+
+	if (country == null) {
+		// eslint-disable-next-line no-console
+		console.error("Country not found", target.coalition);
+		return;
+	}
+
+	const group = country.flightGroups.find((fg) => fg.name === target.name);
+
+	if (group == null) {
+		// eslint-disable-next-line no-console
+		console.error("Escort Target FG not fround", target);
 
 		return;
 	}

@@ -11,7 +11,7 @@ import EWR from "./template/l10n/DEFAULT/ewr.lua";
 import Json from "./template/l10n/DEFAULT/json.lua";
 import MapResource from "./template/l10n/DEFAULT/mapResource.template";
 import MissionLua from "./template/l10n/DEFAULT/mission.lua";
-import Mist from "./template/l10n/DEFAULT/mist_4_5_122.lua";
+import Mist from "./template/l10n/DEFAULT/mist_4_5_126.lua";
 import State from "./template/l10n/DEFAULT/state.lua";
 import Utils from "./template/l10n/DEFAULT/utils.lua";
 import Options from "./template/options.template";
@@ -28,7 +28,7 @@ export async function save(args: { mission: Mission; path?: string; kneeboards?:
 
 	zip.addFile("l10n/DEFAULT/dictionary", Buffer.from(Dictionary));
 	zip.addFile("l10n/DEFAULT/mapResource", Buffer.from(MapResource));
-	zip.addFile("l10n/DEFAULT/mist_4_5_122.lua", Buffer.from(Mist));
+	zip.addFile("l10n/DEFAULT/mist_4_5_126.lua", Buffer.from(Mist));
 	zip.addFile("l10n/DEFAULT/json.lua", Buffer.from(Json));
 	zip.addFile("l10n/DEFAULT/mission-config.lua", Buffer.from("config = " + args.mission.toMissionConfig(), "utf-8"));
 	zip.addFile("l10n/DEFAULT/state.lua", Buffer.from(State));

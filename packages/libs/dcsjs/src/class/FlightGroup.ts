@@ -1,3 +1,5 @@
+import * as Utils from "@kilcekru/dcc-shared-utils";
+
 import * as Data from "../data";
 import {
 	addDatalinks,
@@ -489,6 +491,15 @@ export class FlightGroup extends UnitGroup {
 		return teamMembers;
 	}
 
+	public getFrequencies(mission: Mission): Data.GroupFrequencies {
+		const airdrome = this.#getAirdrome(mission);
+		return {
+			package: this.frequency,
+			airdrome: airdrome.airdromeDefinition.frequency,
+			awacs: Utils.Config.defaults.awacsFrequency,
+		};
+	}
+
 	public override toGenerated(mission: Mission): Data.GeneratedTypes.FlightGroup {
 		const units: Data.GeneratedTypes.FlightGroupUnit[] = [];
 		const startType = this.#calcStartType(mission);
@@ -526,7 +537,7 @@ export class FlightGroup extends UnitGroup {
 				speed: startType === "air" ? this.cruiseSpeed : 0,
 				type: unit.type,
 				AddPropAircraft: structuredClone(addPropAircraft(unit, groupIndex, mission)),
-				Radio: addRadio(unit),
+				Radio: addRadio(unit, this.getFrequencies(mission)),
 				datalinks: addDatalinks(unit.type, groupIndex, teamMembers),
 				unitId: unit.unitId,
 				heading: unit.heading,

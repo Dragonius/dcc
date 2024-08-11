@@ -161,30 +161,34 @@ local function onEvent(event)
     --https://wiki.hoggitworld.com/view/DCS_event_crash
     if event.id == world.event.S_EVENT_CRASH and event.initiator then
         debugLog('S_EVENT_CRASH')
-        local name = event.initiator.getName(event.initiator)
-        local position = event.initiator:getPosition().p
+        if event.initiator ~= nil then
+            local name = event.initiator.getName(event.initiator)
+            local position = event.initiator:getPosition().p
 
-        missionState.crashedAircrafts[#missionState.crashedAircrafts + 1] = {
-            name = name,
-            x = position.x,
-            y = position.z
-        }
-        
-        writeState()
+            missionState.crashedAircrafts[#missionState.crashedAircrafts + 1] = {
+                name = name,
+                x = position.x,
+                y = position.z
+            }
+            
+            writeState()
+        end
     end
 
     if event.id == world.event.S_EVENT_KILL and event.initiator then
         debugLog('S_EVENT_KILL')
-        local name = event.initiator.getName(event.initiator)
-        local position = event.initiator:getPosition().p
+        if event.initiator ~= nil then
+            local name = event.initiator.getName(event.initiator)
+            local position = event.initiator:getPosition().p
 
-        missionState.crashedAircrafts[#missionState.crashedAircrafts + 1] = {
-            name = name,
-            x = position.x,
-            y = position.z
-        }
-        
-        writeState()
+            missionState.crashedAircrafts[#missionState.crashedAircrafts + 1] = {
+                name = name,
+                x = position.x,
+                y = position.z
+            }
+            
+            writeState()
+        end
     end
 
     if event.id == world.event.S_EVENT_DEAD and event.initiator then
