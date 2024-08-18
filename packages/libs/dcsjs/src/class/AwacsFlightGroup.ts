@@ -1,5 +1,3 @@
-import * as Utils from "@kilcekru/dcc-shared-utils";
-
 import * as Data from "../data";
 import { oppositionCoalition } from "../utils";
 import { Airdrome } from "./Airdrome";
@@ -98,7 +96,7 @@ export class AwacsFlightGroup extends FlightGroup {
 
 		super({
 			coalition: args.coalition,
-			frequency: Utils.Config.defaults.awacsFrequency,
+			frequency: 144, // Utils.Config.defaults.awacsFrequency,
 			groupId: args.mission.nextGroupId,
 			units: [
 				{

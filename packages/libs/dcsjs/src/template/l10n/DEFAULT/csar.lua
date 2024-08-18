@@ -245,7 +245,12 @@ end
 DCSAR.eventHandler = {}
 function DCSAR:onEvent(event)
     if event.id == world.event.S_EVENT_BIRTH and event.initiator then
-        local name = event.initiator.getName(event.initiator)
+        if event.initiator == nil then
+            debugLog("event.initiator is nil")
+            return
+        end
+
+        local name = event.initiator:getName()
         local unit = Unit.getByName(name)
 
         if unit then
@@ -269,7 +274,11 @@ function DCSAR:onEvent(event)
         end
     end
     if event.id == world.event.S_EVENT_LAND and event.initiator then
-        local name = event.initiator.getName(event.initiator)
+        if event.initiator == nil then
+            debugLog("event.initiator is nil")
+            return
+        end
+        local name = event.initiator:getName()
         local unit = Unit.getByName(name)
 
         if unit then

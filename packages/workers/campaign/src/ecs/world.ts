@@ -259,17 +259,27 @@ export class World {
 	public submitMissionState(state: Types.Campaign.MissionState) {
 		// eslint-disable-next-line no-console
 		console.log("submitting mission...");
-		for (const name of state.destroyedGroundUnits) {
+		for (const unit of state.lostUnits) {
+			const name = unit.name;
+
 			if (!isNaN(Number(name))) {
-				// eslint-disable-next-line no-console
-				console.warn("unknown id for destroyedGroundUnits", name);
 				continue;
 			}
 			const id = name.toString().split("/")[1];
 
 			if (id == null) {
-				// eslint-disable-next-line no-console
-				console.warn("unknown id for destroyedGroundUnits", name);
+				for (const aircraft of store.queries.aircrafts.blue) {
+					if (aircraft.name === unit.name) {
+						aircraft.crash({ position: unit });
+					}
+				}
+				for (const aircraft of store.queries.aircrafts.red) {
+					if (aircraft.name === unit.name) {
+						aircraft.crash({ position: unit });
+					}
+				}
+
+				continue;
 			}
 			for (const unit of store.queries.groundUnits.blue.values()) {
 				if (unit.id === id) {
@@ -291,19 +301,6 @@ export class World {
 			for (const building of store.queries.buildings.red.values()) {
 				if (building.id === id) {
 					building.destroy();
-				}
-			}
-		}
-
-		for (const crashReport of state.crashedAircrafts) {
-			for (const aircraft of store.queries.aircrafts.blue) {
-				if (aircraft.name === crashReport.name) {
-					aircraft.crash({ position: crashReport });
-				}
-			}
-			for (const aircraft of store.queries.aircrafts.red) {
-				if (aircraft.name === crashReport.name) {
-					aircraft.crash({ position: crashReport });
 				}
 			}
 		}

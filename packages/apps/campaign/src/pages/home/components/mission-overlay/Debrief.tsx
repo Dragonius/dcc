@@ -168,7 +168,7 @@ export function Debrief(props: { missionState: Types.Campaign.MissionState; onCl
 			neutrals: 0,
 		};
 
-		for (const crashReport of props.missionState.crashedAircrafts) {
+		for (const crashReport of props.missionState.lostUnits) {
 			const aircraft = getEntityByName(crashReport.name);
 
 			if (aircraft == null) {
@@ -181,27 +181,27 @@ export function Debrief(props: { missionState: Types.Campaign.MissionState; onCl
 			}
 		}
 
-		for (const unitName of props.missionState.destroyedGroundUnits) {
-			const id = unitName.toString().split("/")[1];
+		for (const unit of props.missionState.lostUnits) {
+			const id = unit.name.toString().split("/")[1];
 
 			if (id == null) {
 				// eslint-disable-next-line no-console
-				console.warn("unknown id for destroyedGroundUnits", unitName);
+				console.warn("unknown id for destroyedGroundUnits", unit.name);
 
 				continue;
 			}
 
-			const unit = getEntity(id);
+			const entity = getEntity(id);
 
-			if (unit == null) {
+			if (entity == null) {
 				continue;
 			}
-			switch (unit?.entityType) {
+			switch (entity?.entityType) {
 				case "GroundUnit":
-					groundUnits[unit?.coalition]++;
+					groundUnits[entity?.coalition]++;
 					break;
 				case "Building":
-					buildings[unit?.coalition]++;
+					buildings[entity?.coalition]++;
 					break;
 			}
 		}

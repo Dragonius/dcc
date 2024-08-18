@@ -118,14 +118,20 @@ export namespace Schema {
 	export const missionState = z.object({
 		missionId: z.string(),
 		missionEnded: z.boolean(),
-		crashedAircrafts: z.array(
+		lostUnits: z.array(
 			z.object({
 				name: z.string(),
 				x: z.number(),
 				y: z.number(),
 			}),
 		),
-		destroyedGroundUnits: z.array(z.string().or(z.number())),
+		ejectedPilots: z.array(
+			z.object({
+				name: z.string(),
+				x: z.number(),
+				y: z.number(),
+			}),
+		),
 		groupPositions: z.record(DcsJs.coalition, z.array(z.object({ name: z.string(), x: z.number(), y: z.number() }))),
 		time: z.number(),
 	});

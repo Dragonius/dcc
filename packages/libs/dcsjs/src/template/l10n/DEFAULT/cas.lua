@@ -47,6 +47,11 @@ local function getTargetUnits(groupName, targetGroupName)
         for i in pairs(targetUnits) do
             local unit = targetUnits[i]
 
+            if unit == nil then
+                debugLog("unit is nil")
+                return
+            end
+
             units[#units + 1] = unit
             DCAS.targets[unit:getName()] = groupName
         end
@@ -57,6 +62,11 @@ local function getTargetUnits(groupName, targetGroupName)
 
             for i in pairs(targetAAUnits) do
                 local unit = targetAAUnits[i]
+
+                if unit == nil then
+                    debugLog("unit is nil")
+                    return
+                end
 
                 units[#units + 1] = unit
                 DCAS.targets[unit:getName()] = groupName
@@ -142,6 +152,11 @@ end
 function DCAS.GetUnitLL(unit, flightGroupUnitNames, dms)
     local unitTable = {}
 
+    if unit == nil then
+        debugLog("unit is nil")
+        return
+    end
+
     table.insert(unitTable, unit:getName())
 
     local str = mist.getLLString({units = unitTable, acc = 3, DMS = dms})
@@ -169,6 +184,11 @@ function DCAS.LaseTarget(groupName, targetUnit, flightGroupUnitNames)
 
             Utils.sendMessageToUnits(string.format("Copy. Start Lasing %s with Code %s", targetUnit:getTypeName(), tostring(groupConfig.laserCode)), flightGroupUnitNames, 10)
 
+            if targetUnit == nil then
+                debugLog("targetUnit is nil")
+                return
+            end
+
             local unitIndex = DCAS.getTargetUnitIndex(groupConfig.targetGroupName, targetUnit:getName())
 
             
@@ -195,6 +215,12 @@ end
 
 function DCAS.StopLaser(groupName, targetUnit, flightGroupUnitNames)
     local groupConfig = DCAS[groupName]
+    
+    if targetUnit == nil then
+        debugLog("targetUnit is nil")
+        return
+    end
+
     local unitIndex = DCAS.getTargetUnitIndex(groupConfig.targetGroupName, targetUnit:getName())
 
     local unitPath = groupConfig.menuRootPath
@@ -238,6 +264,11 @@ function DCAS.getTargetUnitIndex(targetGroupName, unitName)
     for i in pairs(targetUnits) do
         local unit = targetUnits[i]
 
+        if unit == nil then
+            debugLog("unit is nil")
+            return
+        end
+
         if unit:getName() == unitName then
             index = i
         end
@@ -249,7 +280,13 @@ end
 DCAS.eventHandler = {}
 function DCAS:onEvent(event)
     if event.id == world.event.S_EVENT_BIRTH and event.initiator then
-        local name = event.initiator.getName(event.initiator)
+
+        if event.initiator == nil then
+            debugLog("event.initiator is nil")
+            return
+        end
+
+        local name = event.initiator:getName()
         local unit = Unit.getByName(name)
 
         if unit then
@@ -266,7 +303,12 @@ function DCAS:onEvent(event)
         end
     end
     if event.id == world.event.S_EVENT_DEAD and event.initiator then
-        local name = event.initiator.getName(event.initiator)
+        if event.initiator == nil then
+            debugLog("event.initiator is nil")
+            return
+        end
+
+        local name = event.initiator:getName()
         debugLog("S_EVENT_DEAD event for " .. name)
 
         local targetConfig = DCAS.targets[name]
