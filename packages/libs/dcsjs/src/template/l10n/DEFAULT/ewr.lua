@@ -102,9 +102,16 @@ local function getPlanes(clientName, range)
 
             local aspect = calcAspect(unitHeading, unitVec, clientVec)
 
+            local group = unit:getGroup()
+
+            if group == nil then
+                debugLog("group is nil")
+                return
+            end
+
             local plane = {
                 unitType = unitType,
-                groupName = unit:getGroup():getName(),
+                groupName = group:getName(),
                 distance = dist,
                 direction = dir,
                 altitude = alt,
@@ -138,7 +145,20 @@ end
 function DEWR.Tick(clientName)
     
     local clientUnit = Unit.getByName(clientName)
-    local groupConfig = DEWR[clientUnit:getGroup():getName()]
+
+    if clientUnit == nil then
+        debugLog("clientUnit is nil")
+        return
+    end
+
+    local clientGroup = clientUnit:getGroup()
+
+    if clientGroup == nil then
+        debugLog("clientGroup is nil")
+        return
+    end
+
+    local groupConfig = DEWR[clientGroup:getName()]
 
     debugLog("tick " .. clientName)
 
@@ -163,6 +183,11 @@ function DEWR.TickVisual(clientName)
     local clientAlt = mist.utils.round(mist.utils.metersToFeet(clientVec.y) / 1000) * 1000
     local clientHeading = mist.utils.round(mist.utils.toDegree(mist.getHeading(clientUnit)));
     local planes = getPlanes(clientName, 10000)
+
+    if clientUnit:getGroup() == nil then
+        debugLog("client unit group is nil")
+        return
+    end
 
     local groupConfig = DEWR[clientUnit:getGroup():getName()]
 
@@ -200,7 +225,12 @@ end
 DEWR.eventHandler = {}
 function DEWR:onEvent(event)
     if event.id == world.event.S_EVENT_BIRTH and event.initiator then
-        local name = event.initiator.getName(event.initiator)
+        if event.initiator == nil then
+            debugLog("event.initiator is nil")
+            return
+        end
+
+        local name = event.initiator:getName()
         local unit = Unit.getByName(name)
 
         if unit then

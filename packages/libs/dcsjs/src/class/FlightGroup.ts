@@ -1,5 +1,3 @@
-import * as Utils from "@kilcekru/dcc-shared-utils";
-
 import * as Data from "../data";
 import {
 	addDatalinks,
@@ -496,7 +494,7 @@ export class FlightGroup extends UnitGroup {
 		return {
 			package: this.frequency,
 			airdrome: airdrome.airdromeDefinition.frequency,
-			awacs: Utils.Config.defaults.awacsFrequency,
+			awacs: 144, // Utils.Config.defaults.awacsFrequency,
 		};
 	}
 

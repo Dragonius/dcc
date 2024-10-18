@@ -4,8 +4,8 @@ local function debugLog(message) log.write(logName, log.INFO, tostring(message))
 local missionState = {
     missionId = config.missionId,
     missionEnded = false,
-    crashedAircrafts = {},
-    destroyedGroundUnits = {},
+    ejectedPilots = {},
+    lostUnits = {},
     groupPositions = {
         blue = {},
         red = {}
@@ -89,7 +89,6 @@ end
 local function getGroupPositions(coalition)
     local list = mist.getGroupsByAttribute({coalition = coalition}, 0)
 
-    printObj(list)
     local groups = {}
 
     for i in pairs(list) do
@@ -97,8 +96,8 @@ local function getGroupPositions(coalition)
         if groupName ~= nil then
             local group = Group.getByName(groupName)
             
-            if group ~= nil then
-                local category = Group.getCategory(group)
+            if group and group.getCategory then
+                local category = group:getCategory()
 
                 if category == Group.Category.AIRPLANE or category == Group.Category.HELICOPTER then
                     --debugLog(groupName .. " is a aircraft")
@@ -157,58 +156,71 @@ local function writeState()
     export()
 end
 
-local function onEvent(event)
-    --https://wiki.hoggitworld.com/view/DCS_event_crash
-    if event.id == world.event.S_EVENT_CRASH and event.initiator then
-        debugLog('S_EVENT_CRASH')
-        if event.initiator ~= nil then
-            local name = event.initiator.getName(event.initiator)
-            local position = event.initiator:getPosition().p
+local ev = {}
+function ev:onEvent(event)
+    debugLog('onEvent: '..event.id)
+    -- UNIT LOST
+    if event.id == world.event.S_EVENT_UNIT_LOST then
+        debugLog('S_EVENT_UNIT_LOST')
+        local initiator = event.initiator
+        
+        if not initiator then return end
+        if not initiator:isExist() then return end
+        if not initiator.getName then return end
+        if not initiator.getPosition then return end
 
-            missionState.crashedAircrafts[#missionState.crashedAircrafts + 1] = {
-                name = name,
-                x = position.x,
-                y = position.z
-            }
-            
-            writeState()
-        end
-    end
+        debugLog("valid S_EVENT_UNIT_LOST")
+        debugLog("initiator: "..initiator:getName())
 
-    if event.id == world.event.S_EVENT_KILL and event.initiator then
-        debugLog('S_EVENT_KILL')
-        if event.initiator ~= nil then
-            local name = event.initiator.getName(event.initiator)
-            local position = event.initiator:getPosition().p
+        local name = initiator:getName()
+        local position = initiator:getPosition().p
 
-            missionState.crashedAircrafts[#missionState.crashedAircrafts + 1] = {
-                name = name,
-                x = position.x,
-                y = position.z
-            }
-            
-            writeState()
-        end
-    end
-
-    if event.id == world.event.S_EVENT_DEAD and event.initiator then
-        debugLog('S_EVENT_DEAD')
-        missionState.destroyedGroundUnits[#missionState.destroyedGroundUnits + 1] = event.initiator.getName(event.initiator)
+        missionState.lostUnits[#missionState.lostUnits + 1] = {
+            name = name,
+            x = position.x,
+            y = position.z
+        }
+        
         writeState()
     end
+    -- EJECTION
+    if event.id == world.event.S_EVENT_LANDING_AFTER_EJECTION then
+        debugLog('S_EVENT_LANDING_AFTER_EJECTION')
+        local initiator = event.initiator
+        
+        if not initiator then return end
+        if not initiator:isExist() then return end
+        if not initiator.getName then return end
+        if not initiator.getPosition then return end
 
-    if event.id == world.event.S_EVENT_LAND and event.initiator then
-        debugLog('S_EVENT_LAND')
+        local name = initiator:getName()
+        local position = initiator:getPosition().p    
+        
+        if position.x ~= 0 and position.y ~= 0 then
+            local srfType = land.getSurfaceType(position)
+            if srfType ~= land.SurfaceType.WATER and srfType ~= land.SurfaceType.SHALLOW_WATER then
+                missionState.ejectedPilots[#missionState.ejectedPilots + 1] = {
+                    name = name,
+                    x = position.x,
+                    y = position.z
+                }
+                writeState()
+            end
+        end
+    end
+    -- BIRTH
+    if event.id == world.event.S_EVENT_BIRTH and event.initiator and event.initiator.getPlayerName then
+        local player = event.initiator:getPlayerName()
+        if player then
+            debugLog('birth: '..player)
+        end
     end
 
-    if event.id == world.event.S_EVENT_EJECTION and event.initiator then
-        debugLog('S_EVENT_EJECTION')
-    end
-
+    -- MISSION END
     if event.id == world.event.S_EVENT_MISSION_END then
         missionState.missionEnded = true
         writeState()
     end
 end
 
-mist.addEventHandler(onEvent)
+world.addEventHandler(ev)
