@@ -10,7 +10,7 @@
 		"type": "objective",
 		"value": "An Nasiriyah"
 	},
-	"blue-start-objective-range": [90, 420],
+	"blue-start-objective-range": [2, 20],
 	"blue": {
 		"airdromeNames": ["Incirlik", "Hatay", "Minakh", "Aleppo Kuweires", "Jirah", "Bassel Al-Assad"],
 		"carrierObjective": "Alpha",
