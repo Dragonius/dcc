@@ -10,14 +10,14 @@
 		"type": "objective",
 		"value": "An Nasiriyah"
 	},
-	"blue-start-objective-range": [1, 120],
+	"blue-start-objective-range": [30, 120],
 	"blue": {
-		"airdromeNames": ["Incirlik","Kingsfield","Akrotiri","Minakh"],
+		"airdromeNames": ["Incirlik", "Kingsfield", "Akrotiri", "Minakh"],
 		"carrierObjective": "Alpha",
-		"objectives": ["Hama", "Tabqa","Rene","Shayrat","An Nasiriyah"]
+		"objectives": ["Hama", "Tabqa", "Rene", "Shayrat", "An Nasiriyah"]
 	},
 	"red": {
-		"airdromeNames": ["Hama", "Tabqa","Rene","Shayrat","An Nasiriyah","Tiyas","King Hussein Air College"],
-		"objectives": ["Hatay","Minakh","Aleppo Kuweires","Jirah", "Incirlik", "Bassel Al-Assad"]
+		"airdromeNames": ["Hama", "Tabqa", "Rene", "Shayrat", "An Nasiriyah", "Tiyas", "King Hussein Air College"],
+		"objectives": ["Hatay", "Minakh", "Aleppo Kuweires", "Jirah", "Incirlik", "Bassel Al-Assad"]
 	}
 }
