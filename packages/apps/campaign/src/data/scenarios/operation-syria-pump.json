@@ -12,9 +12,9 @@
 	},
 	"blue-start-objective-range": [90, 420],
 	"blue": {
-		"airdromeNames": ["Incirlik", "Kingsfield", "Akrotiri", "Minakh"],
+		"airdromeNames": ["Incirlik", "Hatay", "Minakh", "Aleppo Kuweires", "Jirah", "Bassel Al-Assad"],
 		"carrierObjective": "Alpha",
-		"objectives": ["Hama", "Tabqa", "Rene", "Shayrat", "An Nasiriyah"]
+		"objectives": ["Hama", "Tabqa", "Rene", "Shayrat", "An Nasiriyah", "Tiyas", "King Hussein Air College"]
 	},
 	"red-start-objective-range": [90, 120],
 	"red": {
