@@ -64,13 +64,13 @@ export const Config: Config = {
 	},
 	packages: {
 		AWACS: { maxActive: { blue: 1, red: 1, neutrals: 1 }, maxDistance: 300_000 },
-		"Pinpoint Strike": { maxActive: { blue: 4, red: 3, neutrals: 0 }, maxDistance: 150_000 },
-		Escort: { maxActive: { blue: 4, red: 3, neutrals: 0 }, maxDistance: 150_000 },
-		CAS: { maxActive: { blue: 3, red: 2, neutrals: 0 }, maxDistance: 100_000 },
+		"Pinpoint Strike": { maxActive: { blue: 4, red: 3, neutrals: 0 }, maxDistance: 200_000 },
+		Escort: { maxActive: { blue: 4, red: 3, neutrals: 0 }, maxDistance: 200_000 },
+		CAS: { maxActive: { blue: 3, red: 2, neutrals: 0 }, maxDistance: 200_000 },
 		DEAD: { maxActive: { blue: 2, red: 1, neutrals: 0 }, maxDistance: 200_000 },
 		SEAD: { maxActive: { blue: 2, red: 1, neutrals: 0 }, maxDistance: 200_000 },
-		CSAR: { maxActive: { blue: 2, red: 2, neutrals: 1 }, maxDistance: 30_000 },
-		CAP: { maxActive: { blue: 1, red: 1, neutrals: 1 }, maxDistance: 100_000 },
+		CSAR: { maxActive: { blue: 2, red: 2, neutrals: 1 }, maxDistance: 80_000 },
+		CAP: { maxActive: { blue: 1, red: 1, neutrals: 1 }, maxDistance: 200_000 },
 		"Air Assault": { maxActive: { blue: 1, red: 1, neutrals: 1 }, maxDistance: 40_000 },
 	},
 	structureRange: {
@@ -84,7 +84,7 @@ export const Config: Config = {
 			depot: 60_000,
 			farp: 50_000,
 		},
-		generateRangeMultiplier: { blue: 0.6, red: 0.8, neutrals: 0 },
+		generateRangeMultiplier: { blue: 1.0, red: 0.8, neutrals: 0 },
 	},
 	deploymentScore: {
 		base: 12,
