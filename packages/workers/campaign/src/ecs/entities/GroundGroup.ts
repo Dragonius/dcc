@@ -68,7 +68,7 @@ export class GroundGroup extends Group<keyof Events.EventMap.GroundGroup> {
 						args.start === args.target ? "groundGroups-on target" : "groundGroups-en route",
 					] as QueryKey[],
 					position: args.start.position,
-			  };
+				};
 		super(superArgs);
 
 		if (Serialization.isSerialized(args)) {

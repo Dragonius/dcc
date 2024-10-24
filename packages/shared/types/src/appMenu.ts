@@ -28,7 +28,7 @@ export type MenuEntry =
 			hidden?: boolean;
 			disabled?: boolean;
 			highlight?: boolean;
-	  }
+		}
 	| { type: "separator" };
 
 export type Action =

@@ -9,8 +9,8 @@ export type Document =
 	| {
 			type: "campaign.briefing";
 			data: BriefingDocument;
-	  }
+		}
 	| {
 			type: "campaign.test";
 			data: { text: string };
-	  };
+		};

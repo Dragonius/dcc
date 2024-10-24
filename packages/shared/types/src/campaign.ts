@@ -297,38 +297,38 @@ export type WorkerMessage =
 				scenario: Scenario;
 				campaignParams: CampaignParams;
 			};
-	  }
+		}
 	| {
 			name: "serialize";
-	  }
+		}
 	| {
 			name: "skipToNextDay";
-	  }
+		}
 	| {
 			name: "load";
 			state: WorkerState;
-	  }
+		}
 	| {
 			name: "closeCampaign";
-	  }
+		}
 	| {
 			name: "setClient";
 			payload: {
 				flightGroupId: Id;
 				count: number;
 			};
-	  }
+		}
 	| {
 			name: "getMapUpdate";
-	  }
+		}
 	| {
 			name: "submitMissionState";
 			payload: MissionState;
-	  }
+		}
 	| {
 			name: "setHotStart";
 			payload: boolean;
-	  };
+		};
 
 export type WorkerState = {
 	id: string;

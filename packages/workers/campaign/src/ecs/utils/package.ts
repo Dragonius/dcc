@@ -18,31 +18,31 @@ export type AircraftBundleTarget =
 	| {
 			task: "CAP";
 			oppAirdromeId: Types.Campaign.Id;
-	  }
+		}
 	| {
 			task: "CAS";
 			targetGroundGroupId: Types.Campaign.Id;
-	  }
+		}
 	| {
 			task: "Escort";
 			targetAircraftBundle: AircraftBundle;
-	  }
+		}
 	| {
 			task: "Pinpoint Strike";
 			targetStructureId: Types.Campaign.Id;
-	  }
+		}
 	| {
 			task: "Air Assault";
 			targetGroundGroupId: Types.Campaign.Id;
-	  }
+		}
 	| {
 			task: "DEAD";
 			targetSAMId: Types.Campaign.Id;
-	  }
+		}
 	| {
 			task: "SEAD";
 			targetAircraftBundle: AircraftBundle;
-	  };
+		};
 
 export type AircraftBundleWithTarget = Omit<AircraftBundle, "task"> & AircraftBundleTarget;
 
@@ -50,24 +50,24 @@ type TaskProps =
 	| {
 			task: "CAP";
 			target: Entities.HomeBase;
-	  }
+		}
 	| {
 			task: "CAS" | "Pinpoint Strike";
-	  }
+		}
 	| {
 			task: "Escort";
 			targetAircraftBundle: AircraftBundle;
-	  }
+		}
 	| {
 			task: "Air Assault";
-	  }
+		}
 	| {
 			task: "DEAD";
-	  }
+		}
 	| {
 			task: "SEAD";
 			targetAircraftBundle: AircraftBundle;
-	  };
+		};
 
 /**
  *	Returns a set of aircrafts which are available for a task at one home base and the home base they are stationed at
