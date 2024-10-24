@@ -23,7 +23,7 @@
 		"build:ts": "cd utils/build && pnpm build",
 		"build:web": "cd packages/web && pnpm build",
 		"clean": "pnpm -sr --parallel clean && pnpm forge:clean",
-		"clean:all": "pnpm -r --parallel clean:all && rm -rf node_modules && pnpm forge:clean:all",
+		"clean:all": "pnpm -r --parallel clean:all && rmdir /S /Q node_modules && pnpm forge:clean:all",
 		"dev": "run-p -r dev:build forge:start",
 		"dev:build": "cd utils/build && pnpm watch",
 		"dev:web": "cd packages/web && pnpm dev",

@@ -15,8 +15,8 @@
 		"pnpm": ">=8.6.2"
 	},
 	"scripts": {
-		"clean": "rm -rf dist out vbs",
-		"clean:all": "rm -rf dist out vbs node_modules",
+		"clean": "rmdir /S /Q dist out vbs",
+		"clean:all": "rmdir /S /Q  dist out vbs node_modules",
 		"start": "node start.mjs",
 		"package": "electron-forge package",
 		"make": "electron-forge make"

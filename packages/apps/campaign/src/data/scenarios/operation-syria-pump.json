@@ -8,17 +8,17 @@
 	"briefing": "<p>In the wake of escalating tensions across the Middle East, coalition forces have launched a major offensive to restore stability and reclaim strategic positions. The control of key airbases across Syria has become the central focus, as both Blue and Red forces vie for dominance in a battle that could tip the balance of power in the region.</p> <p>Under the banner of <strong>Operation Syria Pump</strong>, Blue coalition forces, supported by multinational air and ground units, have commenced a decisive operation to <strong>capture An Nasiriyah</strong>. With this airbase serving as a strategic linchpin in the region, the coalition aims to neutralize Red forces, secure vital air superiority, and create a foothold for further operations in southern Syria. The operation will involve coordinated air strikes, airborne assaults, and precision ground maneuvers aimed at disrupting Red’s supply lines and military infrastructure.</p> <p>Meanwhile, Red forces are not standing idle. They have mobilized to counter the Blue offensive, seeking to reclaim airfields such as <strong>Minakh</strong> and <strong>Hatay</strong> while reinforcing their strongholds in <strong>Hama</strong>, <strong>Shayrat</strong>, and <strong>Tabqa</strong>. The outcome of these battles will determine control over critical airspace and dictate the course of the broader conflict.</p> <p>The stakes are high. Both sides are well-equipped, with advanced fighter jets and helicopters providing support to ground troops. The campaign will be fierce, as each side seeks to outmaneuver the other in the race for airfield dominance.</p>",
 	"win-condition": {
 		"type": "objective",
-		"value": "An Nasiriyah"
+		"value": "Shayrat"
 	},
-	"blue-start-objective-range": [2, 20],
+	"blue-start-objective-range": [5, 10],
 	"blue": {
-		"airdromeNames": ["Incirlik", "Hatay", "Minakh", "Aleppo Kuweires", "Jirah", "Bassel Al-Assad"],
-		"carrierObjective": "Alpha",
-		"objectives": ["Hama", "Tabqa", "Rene", "Shayrat", "An Nasiriyah", "Tiyas", "King Hussein Air College"]
+		"airdromeNames": ["Hatay", "Minakh", "Gaziantep"],
+		"carrierObjective": "Beta",
+		"objectives": ["Hama", "Tabqa", "Rene Mouawad", "Shayrat", "Tiyas"]
 	},
 	"red-start-objective-range": [90, 120],
 	"red": {
-		"airdromeNames": ["Hama", "Tabqa", "Rene", "Shayrat", "An Nasiriyah", "Tiyas", "King Hussein Air College"],
-		"objectives": ["Hatay", "Minakh", "Aleppo Kuweires", "Jirah", "Incirlik", "Bassel Al-Assad"]
+		"airdromeNames": ["Hama", "Rene Mouawad", "Tiyas"],
+		"objectives": ["Aleppo", "Kuweires", "Jirah", "Incirlik", "Taftanaz"]
 	}
 }
