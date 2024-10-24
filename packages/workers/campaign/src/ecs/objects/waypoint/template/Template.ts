@@ -23,7 +23,7 @@ export abstract class WaypointTemplate {
 		| {
 				name: string;
 				position: DcsJs.Position;
-			}
+		  }
 		| undefined;
 
 	protected constructor(args: WaypointTemplateProps) {

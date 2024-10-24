@@ -28,17 +28,17 @@ type TaskProps =
 	| {
 			task: "CAP";
 			target: HomeBase;
-		}
+	  }
 	| {
 			task: "CAS" | "Pinpoint Strike";
-		}
+	  }
 	| {
 			task: "Air Assault";
 			unitCamp: UnitCamp;
-		}
+	  }
 	| {
 			task: "DEAD";
-		};
+	  };
 
 export type PackageCreateProps = BasicProps & TaskProps;
 

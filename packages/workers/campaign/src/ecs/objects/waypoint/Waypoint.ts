@@ -23,7 +23,7 @@ export class Waypoint extends WaypointTemplate {
 				name: string;
 				position: DcsJs.Position;
 				arrivalDuration: number;
-			}
+		  }
 		| undefined;
 
 	constructor(args: WaypointProps | (Types.Serialization.WaypointSerialized & { flightplanId: Types.Campaign.Id })) {
@@ -75,7 +75,7 @@ export class Waypoint extends WaypointTemplate {
 					: {
 							...this.racetrack,
 							arrivalTime: this.arrivalTime + this.racetrack.arrivalDuration,
-						},
+					  },
 		};
 	}
 }
