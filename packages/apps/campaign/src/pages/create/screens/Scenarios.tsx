@@ -20,6 +20,8 @@ const ScenarioItem = (props: {
 				return Styles["road-to-paris"];
 			case "operation-northern-shield":
 				return Styles["operation-northern-shield"];
+			case "operation-syria-pump":
+				return Styles["operation-northern-shield"];
 			default:
 				return;
 		}
@@ -33,6 +35,8 @@ const ScenarioItem = (props: {
 				return "Normandy";
 			case "Syria":
 				return "Syria";
+			case "PersianGulf":
+				return "PersianGulf";
 			default:
 				return "";
 		}

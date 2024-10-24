@@ -397,6 +397,11 @@ export const objectives: Array<Objective> = [
 		position: { x: -201338.3950474, y: -125911.16867619 },
 	},
 	{
+		name: "Beta",
+		type: "Ship",
+		position: { x: 221207.0, y: 39418.74218 },
+	},
+	{
 		name: "Ma'agan",
 		type: "Town",
 		position: { x: -256641.37560448, y: -35753.439477852 },
