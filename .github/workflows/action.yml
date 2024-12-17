@@ -19,18 +19,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 19
+          node-version: 19.9.0
           cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install
-
-  test-and-build:
-    runs-on: ubuntu-22.04
-    needs: Build-make-install 
-    steps:      
+     
       - name: Validate TypeScript and Linting
-
         run: |
           pnpm validate:ts && pnpm validate:lint
 
