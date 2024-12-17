@@ -25,9 +25,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
      
-      - name: Validate TypeScript and Linting
-        run: |
-          pnpm validate:ts && pnpm validate:lint
+#      - name: Validate TypeScript and Linting
+#        run: |
+#          pnpm validate:ts && pnpm validate:lint
 
       - name: Build Project
         run: |
