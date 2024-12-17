@@ -33,12 +33,13 @@ jobs:
         run: |
           pnpm build:ts && pnpm forge:package
 
-      - name: Upload Package Artifact
-        #need: Build Project
-        uses: actions/upload-artifact@v3
-#        with:
-#          name: packaged-files
-#          path: ./path/to/forge/output/  # Replace this with the actual output directory
-
       - name: List Files
         run: ls -R ./  # Recursively list all files in the workspace
+
+      - name: Upload Package Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: packaged-files
+          path: ./forge/dist/  # Replace this with the actual output directory
+
+
