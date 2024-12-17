@@ -4,7 +4,12 @@ on:
   
 jobs:
   Build-make-install:
-    runs-on: ubuntu-22.04
+  
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-10]
+    runs-on: ${{ matrix.os }}
+        
 
     steps:
       - name: Checkout
@@ -25,9 +30,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
      
-#      - name: Validate TypeScript and Linting
-#        run: |
-#          pnpm validate:ts && pnpm validate:lint
+      - name: Validate TypeScript and Linting
+        run: |
+          pnpm validate:ts && pnpm validate:lint
 
       - name: Build Project
         run: |
