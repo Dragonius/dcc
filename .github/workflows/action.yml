@@ -37,9 +37,9 @@ jobs:
         run: ls -R ./  # Recursively list all files in the workspace
 
       - name: Upload Package Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: packaged-files
-          path: ./forge/dist/  # Replace this with the actual output directory
+          path: ./forge/out/  # Replace this with the actual output directory
 
 
