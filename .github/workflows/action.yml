@@ -38,13 +38,8 @@ jobs:
         run: |
           pnpm build:ts && pnpm forge:package
 
-      - name: List Files
-        run: ls -R ./  # Recursively list all files in the workspace
-
       - name: Upload Package Artifact
         uses: actions/upload-artifact@v4
         with:
           name: packaged-files
-          path: ./forge/out/  # Replace this with the actual output directory
-
-
+          path: ./forge/out/  # There should be files about 107Mb ...
