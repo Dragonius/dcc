@@ -41,5 +41,5 @@ jobs:
       - name: Upload Package Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: packaged-files
+          name: packaged-files-${{ matrix.os }}
           path: ./forge/out/  # There should be files about 107Mb ...
